@@ -20,8 +20,8 @@ defmodule EasedBackend.Auth do
     do:  find_user_by_user_id(user_id, role)
   end
 
-  defp parse_token(conn, auth_header) do
-    case Phoenix.Token.verify(conn, "user", auth_header) do
+  defp parse_token(conn, [token]) do
+    case Phoenix.Token.verify(conn, "user", token) do
       {:error, _} -> :error
       {:ok, user_id} -> {:ok, user_id}
     end
@@ -42,6 +42,7 @@ defmodule EasedBackend.Auth do
   end
 
   defp auth_error!(conn) do
+    IO.puts "auth_error"
     conn |> put_status(:unauthorized) |> halt()
   end
 

@@ -42,7 +42,7 @@ defmodule EasedBackend.RequestView do
   end
 
   def render("request.json", %{request: request}) do
-    student = if request.student, do: render_one(request.student, EasedBackend.Student, "student.json"), else: nil
+    student = if request.student, do: render_one(request.student, EasedBackend.StudentView, "student.json"), else: nil
 
     %{id: request.id,
       student: student,

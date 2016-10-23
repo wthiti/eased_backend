@@ -9,7 +9,8 @@ defmodule EasedBackend.RequestController do
 
     q = from r in Request,
       where: r.student_id == ^student.id,
-      select: r
+      select: r,
+      preload: [:student]
     requests = Repo.all(q)
 
     render(conn, "index.json", requests: requests)
@@ -44,7 +45,7 @@ defmodule EasedBackend.RequestController do
 
   def student_show(conn, %{"id" => id}) do
     request = Repo.get!(Request, id)
-      |> Repo.preload(:request_teachers, request_teachers: [:teacher] )
+      |> Repo.preload([ :request_teachers, request_teachers: [:teacher] ])
 
     render(conn, "student_show.json", %{request: request})
   end
