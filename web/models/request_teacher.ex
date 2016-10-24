@@ -3,6 +3,7 @@ defmodule EasedBackend.RequestTeacher do
 
   schema "request_teachers" do
     field :possibility, :integer
+    field :enrolled, :boolean
     belongs_to :request, EasedBackend.Request
     belongs_to :teacher, EasedBackend.Teacher
 
